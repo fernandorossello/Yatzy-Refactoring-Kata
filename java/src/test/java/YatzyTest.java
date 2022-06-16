@@ -6,8 +6,8 @@ public class YatzyTest {
 
     @Test
     public void test_chance_shouldScoreTheSumOfAllDices() {
-        assertEquals(15, Yatzy.chance(2, 3, 4, 5, 1));
-        assertEquals(16, Yatzy.chance(3, 3, 4, 5, 1));
+        assertEquals(15, new Yatzy(2, 3, 4, 5, 1).chance());
+        assertEquals(16, new Yatzy(3, 3, 4, 5, 1).chance());
     }
 
     @Test
