@@ -33,15 +33,15 @@ public class YatzyTest {
 
     @Test
     public void test_threes_shouldSumAllDicesWithValueThree() {
-        assertEquals(6, Yatzy.threes(1, 2, 3, 2, 3));
-        assertEquals(12, Yatzy.threes(2, 3, 3, 3, 3));
+        assertEquals(6, new Yatzy(1, 2, 3, 2, 3).threes());
+        assertEquals(12, new Yatzy(2, 3, 3, 3, 3).threes());
     }
 
     @Test
     public void test_fours_shouldSumAllDicesWithValueFour() {
-        assertEquals(12, new Yatzy(4, 4, 4, 5, 5).fours());
-        assertEquals(8, new Yatzy(4, 4, 5, 5, 5).fours());
         assertEquals(4, new Yatzy(4, 5, 5, 5, 5).fours());
+        assertEquals(8, new Yatzy(4, 4, 5, 5, 5).fours());
+        assertEquals(12, new Yatzy(4, 4, 4, 5, 5).fours());
     }
 
     @Test
