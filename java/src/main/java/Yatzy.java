@@ -1,14 +1,12 @@
 public class Yatzy {
 
-    protected int[] dice;
+    protected int[] rolledDices;
 
-    public Yatzy(int d1, int d2, int d3, int d4, int _5) {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = _5;
+    public Yatzy(int... dices) {
+        if (dices.length > 5) {
+            throw new IllegalArgumentException("More dices than allowed");
+        }
+        this.rolledDices = dices;
     }
 
     public static int chance(int d1, int d2, int d3, int d4, int d5) {
@@ -37,7 +35,7 @@ public class Yatzy {
         int sum;
         sum = 0;
         for (int at = 0; at != 5; at++) {
-            if (dice[at] == 4) {
+            if (rolledDices[at] == 4) {
                 sum += 4;
             }
         }
@@ -47,28 +45,18 @@ public class Yatzy {
     public int fives() {
         int s = 0;
         int i;
-        for (i = 0; i < dice.length; i++)
-            if (dice[i] == 5)
+        for (i = 0; i < rolledDices.length; i++)
+            if (rolledDices[i] == 5)
                 s = s + 5;
         return s;
     }
 
     public int sixes() {
         int sum = 0;
-        for (int at = 0; at < dice.length; at++)
-            if (dice[at] == 6)
+        for (int at = 0; at < rolledDices.length; at++)
+            if (rolledDices[at] == 6)
                 sum = sum + 6;
         return sum;
-    }
-
-    public static int yatzy(int... dice) {
-        int[] counts = new int[6];
-        for (int die : dice)
-            counts[die - 1]++;
-        for (int i = 0; i != 6; i++)
-            if (counts[i] == 5)
-                return 50;
-        return 0;
     }
 
     private static int sumDicesWithValue(int value, int... dices) {
@@ -210,6 +198,16 @@ public class Yatzy {
             return _2_at * 2 + _3_at * 3;
         else
             return 0;
+    }
+
+    public static int yatzy(int... dice) {
+        int[] counts = new int[6];
+        for (int die : dice)
+            counts[die - 1]++;
+        for (int i = 0; i != 6; i++)
+            if (counts[i] == 5)
+                return 50;
+        return 0;
     }
 }
 
