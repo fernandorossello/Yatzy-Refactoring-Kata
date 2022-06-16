@@ -101,7 +101,8 @@ public class Yatzy {
     }
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = countOccurrencesOfDices(d1, d2, d3, d4, d5);;
+        int[] tallies = countOccurrencesOfDices(d1, d2, d3, d4, d5);
+        ;
         boolean _2 = false;
         int i;
         int _2_at = 0;
@@ -126,14 +127,10 @@ public class Yatzy {
             return 0;
     }
 
-    public static int yatzy(int... dice) {
-        int[] counts = new int[6];
-        for (int die : dice)
-            counts[die - 1]++;
-        for (int i = 0; i != 6; i++)
-            if (counts[i] == 5)
-                return 50;
-        return 0;
+    public int yatzy() {
+        int[] counts = countOccurrencesOfDices(this.rolledDices);
+
+        return Arrays.stream(counts).anyMatch(occurrences -> occurrences == 5) ? 50 : 0;
     }
 
     private int sumDicesWithValue(int value, int... dices) {
@@ -150,10 +147,9 @@ public class Yatzy {
     private static int[] countOccurrencesOfDices(int... dices) {
         int[] counts = new int[6];
         for (int dice : dices)
-            counts[dice-1]++;
+            counts[dice - 1]++;
         return counts;
     }
-
 
 }
 
