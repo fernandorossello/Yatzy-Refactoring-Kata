@@ -63,29 +63,25 @@ public class Yatzy {
     }
 
     public static int fourOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = countOccurrencesOfDices(d1, d2, d3, d4, d5);
-        for (int i = 0; i < 6; i++)
-            if (tallies[i] >= 4)
-                return (i + 1) * 4;
-        return 0;
+        int[] countOfOccurrences = countOccurrencesOfDices(d1, d2, d3, d4, d5);
+        return getScoreForNOfAKind(countOfOccurrences, 4);
     }
 
     public static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        int[] t = countOccurrencesOfDices(d1, d2, d3, d4, d5);
-        for (int i = 0; i < 6; i++)
-            if (t[i] >= 3)
-                return (i + 1) * 3;
-        return 0;
+        int[] countOfOccurrences = countOccurrencesOfDices(d1, d2, d3, d4, d5);
+        return getScoreForNOfAKind(countOfOccurrences, 3);
     }
 
     public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
         int[] tallies = countOccurrencesOfDices(d1, d2, d3, d4, d5);
+
         if (tallies[0] == 1 &&
             tallies[1] == 1 &&
             tallies[2] == 1 &&
             tallies[3] == 1 &&
-            tallies[4] == 1)
+            tallies[4] == 1) {
             return 15;
+        }
         return 0;
     }
 
@@ -95,8 +91,9 @@ public class Yatzy {
             tallies[2] == 1 &&
             tallies[3] == 1 &&
             tallies[4] == 1
-            && tallies[5] == 1)
+            && tallies[5] == 1) {
             return 20;
+        }
         return 0;
     }
 
@@ -151,6 +148,12 @@ public class Yatzy {
         return counts;
     }
 
+    private static int getScoreForNOfAKind(int[] countOfOccurrences, int expectedOccurrences) {
+        for (int i = 0; i < 6; i++)
+            if (countOfOccurrences[i] >= expectedOccurrences)
+                return (i + 1) * expectedOccurrences;
+        return 0;
+    }
 }
 
 
