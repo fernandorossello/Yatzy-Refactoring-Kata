@@ -147,15 +147,14 @@ public class Yatzy {
         return sum;
     }
 
-    private static int[] countOccurrencesOfDices(int d1, int d2, int d3, int d4, int d5) {
+    private static int[] countOccurrencesOfDices(int... dices) {
         int[] counts = new int[6];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
+        for (int dice : dices)
+            counts[dice-1]++;
         return counts;
     }
+
+
 }
 
 
