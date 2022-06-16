@@ -60,9 +60,9 @@ public class YatzyTest {
 
     @Test
     public void test_onePair_shouldSumTheValueOfThePair() {
-        assertEquals(6, Yatzy.onePair(3, 4, 3, 5, 6));
-        assertEquals(10, Yatzy.onePair(5, 3, 3, 3, 5));
-        assertEquals(12, Yatzy.onePair(5, 3, 6, 6, 5));
+        assertEquals(6, new Yatzy(3, 4, 3, 5, 6).onePair());
+        assertEquals(10, new Yatzy(5, 3, 3, 3, 5).onePair());
+        assertEquals(12, new Yatzy(5, 3, 6, 6, 5).onePair());
     }
 
     @Test
@@ -73,30 +73,30 @@ public class YatzyTest {
 
     @Test
     public void test_threeOfAKind_shouldSumAllValuesOfTheThreeOfAKind() {
-        assertEquals(9, Yatzy.threeOfAKind(3, 3, 3, 4, 5));
-        assertEquals(15, Yatzy.threeOfAKind(5, 3, 5, 4, 5));
-        assertEquals(9, Yatzy.threeOfAKind(3, 3, 3, 3, 5));
+        assertEquals(9, new Yatzy(3, 3, 3, 4, 5).threeOfAKind());
+        assertEquals(15, new Yatzy(5, 3, 5, 4, 5).threeOfAKind());
+        assertEquals(9, new Yatzy(3, 3, 3, 3, 5).threeOfAKind());
     }
 
     @Test
     public void test_fourOfaAKind_shouldSumAllValuesOfTheFourOfAKind() {
-        assertEquals(12, Yatzy.fourOfAKind(3, 3, 3, 3, 5));
-        assertEquals(20, Yatzy.fourOfAKind(5, 5, 5, 4, 5));
-        assertEquals(12, Yatzy.fourOfAKind(3, 3, 3, 3, 3));
+        assertEquals(12, new Yatzy(3, 3, 3, 3, 5).fourOfAKind());
+        assertEquals(20, new Yatzy(5, 5, 5, 4, 5).fourOfAKind());
+        assertEquals(12, new Yatzy(3, 3, 3, 3, 3).fourOfAKind());
     }
 
     @Test
     public void test_smallWtraight_shouldScoreFifteen() {
-        assertEquals(15, Yatzy.smallStraight(1, 2, 3, 4, 5));
-        assertEquals(15, Yatzy.smallStraight(2, 3, 4, 5, 1));
-        assertEquals(0, Yatzy.smallStraight(1, 2, 2, 4, 5));
+        assertEquals(15, new Yatzy(1, 2, 3, 4, 5).smallStraight());
+        assertEquals(15, new Yatzy(2, 3, 4, 5, 1).smallStraight());
+        assertEquals(0, new Yatzy(1, 2, 2, 4, 5).smallStraight());
     }
 
     @Test
     public void test_largeStraight_shouldScoreTwenty() {
-        assertEquals(20, Yatzy.largeStraight(6, 2, 3, 4, 5));
-        assertEquals(20, Yatzy.largeStraight(2, 3, 4, 5, 6));
-        assertEquals(0, Yatzy.largeStraight(1, 2, 2, 4, 5));
+        assertEquals(20, new Yatzy(6, 2, 3, 4, 5).largeStraight());
+        assertEquals(20, new Yatzy(2, 3, 4, 5, 6).largeStraight());
+        assertEquals(0, new Yatzy(1, 2, 2, 4, 5).largeStraight());
     }
 
     @Test

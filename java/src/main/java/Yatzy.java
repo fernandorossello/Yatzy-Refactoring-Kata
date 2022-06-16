@@ -16,39 +16,35 @@ public class Yatzy {
     }
 
     public int ones() {
-        return sumDicesWithValue(1, this.rolledDices);
+        return sumDicesofValue(1, this.rolledDices);
     }
 
     public int twos() {
-        return sumDicesWithValue(2, this.rolledDices);
+        return sumDicesofValue(2, this.rolledDices);
     }
 
     public int threes() {
-        return sumDicesWithValue(3, this.rolledDices);
+        return sumDicesofValue(3, this.rolledDices);
     }
 
     public int fours() {
-        return sumDicesWithValue(4, this.rolledDices);
+        return sumDicesofValue(4, this.rolledDices);
     }
 
     public int fives() {
-        return sumDicesWithValue(5, this.rolledDices);
+        return sumDicesofValue(5, this.rolledDices);
     }
 
     public int sixes() {
-        return sumDicesWithValue(6, this.rolledDices);
+        return sumDicesofValue(6, this.rolledDices);
     }
 
-    public static int onePair(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = countOccurrencesOfDices(d1, d2, d3, d4, d5);
-        for (int at = 0; at != 6; at++)
-            if (counts[6 - at - 1] >= 2)
-                return (6 - at) * 2;
-        return 0;
+    public int onePair() {
+        return getScoreForNOfAKind(2);
     }
 
     public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = countOccurrencesOfDices(d1, d2, d3, d4, d5);
+        int[] counts = countOccurrencesOfDicesStatic(d1, d2, d3, d4, d5);
         int n = 0;
         int score = 0;
         for (int i = 0; i < 6; i += 1)
@@ -62,43 +58,35 @@ public class Yatzy {
             return 0;
     }
 
-    public static int fourOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        int[] countOfOccurrences = countOccurrencesOfDices(d1, d2, d3, d4, d5);
-        return getScoreForNOfAKind(countOfOccurrences, 4);
+    public int threeOfAKind() {
+        return getScoreForNOfAKind(3);
     }
 
-    public static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        int[] countOfOccurrences = countOccurrencesOfDices(d1, d2, d3, d4, d5);
-        return getScoreForNOfAKind(countOfOccurrences, 3);
+    public int fourOfAKind() {
+        return getScoreForNOfAKind(4);
     }
 
-    public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = countOccurrencesOfDices(d1, d2, d3, d4, d5);
-
-        if (tallies[0] == 1 &&
-            tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1) {
-            return 15;
+    public int smallStraight() {
+        int[] tallies = countOccurrencesOfRolledDices();
+        //TODO: Shared logic between straights
+        for (int i = 0; i < 5; i++) {
+            if (tallies[i] != 1) return 0;
         }
-        return 0;
+
+        return 15;
     }
 
-    public static int largeStraight(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = countOccurrencesOfDices(d1, d2, d3, d4, d5);
-        if (tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1
-            && tallies[5] == 1) {
-            return 20;
+    public int largeStraight() {
+        int[] tallies = countOccurrencesOfRolledDices();
+        for (int i = 1; i < 6; i++) {
+            if (tallies[i] != 1) return 0;
         }
-        return 0;
+
+        return 20;
     }
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = countOccurrencesOfDices(d1, d2, d3, d4, d5);
+        int[] tallies = countOccurrencesOfDicesStatic(d1, d2, d3, d4, d5);
         ;
         boolean _2 = false;
         int i;
@@ -125,12 +113,11 @@ public class Yatzy {
     }
 
     public int yatzy() {
-        int[] counts = countOccurrencesOfDices(this.rolledDices);
-
+        int[] counts = countOccurrencesOfRolledDices();
         return Arrays.stream(counts).anyMatch(occurrences -> occurrences == 5) ? 50 : 0;
     }
 
-    private int sumDicesWithValue(int value, int... dices) {
+    private int sumDicesofValue(int value, int... dices) {
         int sum = 0;
         for (int dice : dices) {
             if (dice == value) {
@@ -141,17 +128,27 @@ public class Yatzy {
         return sum;
     }
 
-    private static int[] countOccurrencesOfDices(int... dices) {
+    private static int[] countOccurrencesOfDicesStatic(int... dices) {
         int[] counts = new int[6];
         for (int dice : dices)
             counts[dice - 1]++;
         return counts;
     }
 
-    private static int getScoreForNOfAKind(int[] countOfOccurrences, int expectedOccurrences) {
-        for (int i = 0; i < 6; i++)
-            if (countOfOccurrences[i] >= expectedOccurrences)
-                return (i + 1) * expectedOccurrences;
+    private int[] countOccurrencesOfRolledDices() {
+        int[] counts = new int[6];
+        for (int dice : this.rolledDices)
+            counts[dice - 1]++;
+        return counts;
+    }
+
+    private int getScoreForNOfAKind(int expectedOccurrences) {
+        int[] countOfOccurrences = this.countOccurrencesOfRolledDices();
+        for (int i = 0; i < 6; i++) {
+            if (countOfOccurrences[6 - i - 1] >= expectedOccurrences) {
+                return (6 - i) * expectedOccurrences;
+            }
+        }
         return 0;
     }
 }
