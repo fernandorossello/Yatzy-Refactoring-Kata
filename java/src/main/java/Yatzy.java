@@ -77,28 +77,25 @@ public class Yatzy {
 
     public int fullHouse() {
         int[] count = countOccurrencesOfRolledDices();
-        boolean _2 = false;
-        int i;
         int _2_at = 0;
-        boolean _3 = false;
         int _3_at = 0;
+        boolean threeOf = false;
+        boolean twoOf = false;
 
-        for (i = 1; i <= 6; i += 1)
-            if (count[i] == 2) {
-                _2 = true;
+        for(int i = 1; i <= 6; i++) {
+            if(count[i] == 2) {
+                twoOf = true;
                 _2_at = i;
             }
 
-        for (i = 1; i <= 6; i += 1)
-            if (count[i] == 3) {
-                _3 = true;
+            if(count[i] == 3) {
+                threeOf = true;
                 _3_at = i;
             }
+        }
 
-        if (_2 && _3)
-            return _2_at * 2 + _3_at * 3;
-        else
-            return 0;
+        return twoOf && threeOf ? _2_at * 2 + _3_at * 3 : 0;
+
     }
 
     private int sumDicesOfValue(int value, int... dices) {
