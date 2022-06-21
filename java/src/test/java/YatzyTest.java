@@ -67,8 +67,8 @@ public class YatzyTest {
 
     @Test
     public void test_twoPairs_shouldSumTheValueOfTheTwoPairs() {
-        assertEquals(16, Yatzy.twoPairs(3, 3, 5, 4, 5));
-        assertEquals(16, Yatzy.twoPairs(3, 3, 5, 5, 5));
+        assertEquals(16, new Yatzy(3, 3, 5, 4, 5).twoPairs());
+        assertEquals(16, new Yatzy(3, 3, 5, 5, 5).twoPairs());
     }
 
     @Test

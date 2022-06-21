@@ -56,28 +56,19 @@ public class Yatzy {
         return hasAllNumbersBetween(2,6) ? 20 : 0;
     }
 
-    private boolean hasAllNumbersBetween(int from, int to) {
-        int[] tallies = countOccurrencesOfRolledDices();
-        for (int i = from; i <= to; i++) {
-            if (tallies[i] != 1) return false;
-        }
-
-        return true;
-    }
-
     public int yatzy() {
         int[] counts = countOccurrencesOfRolledDices();
         return Arrays.stream(counts).anyMatch(occurrences -> occurrences == 5) ? 50 : 0;
     }
 
-    public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = countOccurrencesOfDicesStatic(d1, d2, d3, d4, d5);
+    public int twoPairs() {
+        int [] counts = countOccurrencesOfRolledDices();
         int n = 0;
         int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (counts[6 - i - 1] >= 2) {
+        for (int i = 6; i > 0; i--)
+            if (counts[i] >= 2) {
                 n++;
-                score += (6 - i);
+                score += i;
             }
         if (n == 2)
             return score * 2;
@@ -121,6 +112,15 @@ public class Yatzy {
         }
 
         return sum;
+    }
+
+    private boolean hasAllNumbersBetween(int from, int to) {
+        int[] tallies = countOccurrencesOfRolledDices();
+        for (int i = from; i <= to; i++) {
+            if (tallies[i] != 1) return false;
+        }
+
+        return true;
     }
 
     private static int[] countOccurrencesOfDicesStatic(int... dices) {
