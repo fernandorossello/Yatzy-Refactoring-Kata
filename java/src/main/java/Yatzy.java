@@ -13,27 +13,27 @@ public class Yatzy {
     }
 
     public int ones() {
-        return sumDicesOfValue(1, this.rolledDices);
+        return sumDicesOfValue(1);
     }
 
     public int twos() {
-        return sumDicesOfValue(2, this.rolledDices);
+        return sumDicesOfValue(2);
     }
 
     public int threes() {
-        return sumDicesOfValue(3, this.rolledDices);
+        return sumDicesOfValue(3);
     }
 
     public int fours() {
-        return sumDicesOfValue(4, this.rolledDices);
+        return sumDicesOfValue(4);
     }
 
     public int fives() {
-        return sumDicesOfValue(5, this.rolledDices);
+        return sumDicesOfValue(5);
     }
 
     public int sixes() {
-        return sumDicesOfValue(6, this.rolledDices);
+        return sumDicesOfValue(6);
     }
 
     public int onePair() {
@@ -98,9 +98,10 @@ public class Yatzy {
 
     }
 
-    private int sumDicesOfValue(int value, int... dices) {
+
+    private int sumDicesOfValue(int value) {
         int sum = 0;
-        for (int dice : dices) {
+        for (int dice : this.rolledDices) {
             if (dice == value) {
                 sum += value;
             }
