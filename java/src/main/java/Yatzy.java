@@ -49,22 +49,20 @@ public class Yatzy {
     }
 
     public int smallStraight() {
-        int[] tallies = countOccurrencesOfRolledDices();
-        //TODO: Shared logic between straights
-        for (int i = 0; i < 5; i++) {
-            if (tallies[i] != 1) return 0;
-        }
-
-        return 15;
+        return hasAllNumbersBetween(1,5) ? 15 : 0;
     }
 
     public int largeStraight() {
+        return hasAllNumbersBetween(2,6) ? 20 : 0;
+    }
+
+    private boolean hasAllNumbersBetween(int from, int to) {
         int[] tallies = countOccurrencesOfRolledDices();
-        for (int i = 1; i < 6; i++) {
-            if (tallies[i] != 1) return 0;
+        for (int i = from; i <= to; i++) {
+            if (tallies[i] != 1) return false;
         }
 
-        return 20;
+        return true;
     }
 
     public int yatzy() {
@@ -133,17 +131,17 @@ public class Yatzy {
     }
 
     private int[] countOccurrencesOfRolledDices() {
-        int[] counts = new int[6];
+        int[] counts = new int[7];
         for (int dice : this.rolledDices)
-            counts[dice - 1]++;
+            counts[dice]++;
         return counts;
     }
 
     private int getScoreForNOfAKind(int expectedOccurrences) {
         int[] countOfOccurrences = this.countOccurrencesOfRolledDices();
-        for (int i = 0; i < 6; i++) {
-            if (countOfOccurrences[6 - i - 1] >= expectedOccurrences) {
-                return (6 - i) * expectedOccurrences;
+        for (int i = 6; i > 0; i--) {
+            if (countOfOccurrences[i] >= expectedOccurrences) {
+                return i * expectedOccurrences;
             }
         }
         return 0;
