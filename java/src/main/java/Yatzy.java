@@ -13,27 +13,27 @@ public class Yatzy {
     }
 
     public int ones() {
-        return sumDicesofValue(1, this.rolledDices);
+        return sumDicesOfValue(1, this.rolledDices);
     }
 
     public int twos() {
-        return sumDicesofValue(2, this.rolledDices);
+        return sumDicesOfValue(2, this.rolledDices);
     }
 
     public int threes() {
-        return sumDicesofValue(3, this.rolledDices);
+        return sumDicesOfValue(3, this.rolledDices);
     }
 
     public int fours() {
-        return sumDicesofValue(4, this.rolledDices);
+        return sumDicesOfValue(4, this.rolledDices);
     }
 
     public int fives() {
-        return sumDicesofValue(5, this.rolledDices);
+        return sumDicesOfValue(5, this.rolledDices);
     }
 
     public int sixes() {
-        return sumDicesofValue(6, this.rolledDices);
+        return sumDicesOfValue(6, this.rolledDices);
     }
 
     public int onePair() {
@@ -57,8 +57,7 @@ public class Yatzy {
     }
 
     public int yatzy() {
-        int[] counts = countOccurrencesOfRolledDices();
-        return Arrays.stream(counts).anyMatch(occurrences -> occurrences == 5) ? 50 : 0;
+        return Arrays.stream(countOccurrencesOfRolledDices()).anyMatch(occurrences -> occurrences == 5) ? 50 : 0;
     }
 
     public int twoPairs() {
@@ -76,25 +75,24 @@ public class Yatzy {
             return 0;
     }
 
-    public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = countOccurrencesOfDicesStatic(d1, d2, d3, d4, d5);
-        ;
+    public int fullHouse() {
+        int[] count = countOccurrencesOfRolledDices();
         boolean _2 = false;
         int i;
         int _2_at = 0;
         boolean _3 = false;
         int _3_at = 0;
 
-        for (i = 0; i != 6; i += 1)
-            if (tallies[i] == 2) {
+        for (i = 1; i <= 6; i += 1)
+            if (count[i] == 2) {
                 _2 = true;
-                _2_at = i + 1;
+                _2_at = i;
             }
 
-        for (i = 0; i != 6; i += 1)
-            if (tallies[i] == 3) {
+        for (i = 1; i <= 6; i += 1)
+            if (count[i] == 3) {
                 _3 = true;
-                _3_at = i + 1;
+                _3_at = i;
             }
 
         if (_2 && _3)
@@ -103,7 +101,7 @@ public class Yatzy {
             return 0;
     }
 
-    private int sumDicesofValue(int value, int... dices) {
+    private int sumDicesOfValue(int value, int... dices) {
         int sum = 0;
         for (int dice : dices) {
             if (dice == value) {
@@ -121,13 +119,6 @@ public class Yatzy {
         }
 
         return true;
-    }
-
-    private static int[] countOccurrencesOfDicesStatic(int... dices) {
-        int[] counts = new int[6];
-        for (int dice : dices)
-            counts[dice - 1]++;
-        return counts;
     }
 
     private int[] countOccurrencesOfRolledDices() {
