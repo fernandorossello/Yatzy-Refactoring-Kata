@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 public class Yatzy {
 
+    // TODO: Extract this to a DiceHand class
     protected int[] rolledDices;
 
     public Yatzy(int d1, int d2, int d3, int d4, int d5) {
@@ -64,15 +65,19 @@ public class Yatzy {
         int [] counts = countOccurrencesOfRolledDices();
         int n = 0;
         int score = 0;
-        for (int i = 6; i > 0; i--)
+
+        for (int i = 1; i <= 6; i++) {
             if (counts[i] >= 2) {
                 n++;
                 score += i;
             }
-        if (n == 2)
+        }
+
+        if (n == 2) {
             return score * 2;
-        else
+        } else {
             return 0;
+        }
     }
 
     public int fullHouse() {
@@ -97,7 +102,6 @@ public class Yatzy {
         return twoOf && threeOf ? _2_at * 2 + _3_at * 3 : 0;
 
     }
-
 
     private int sumDicesOfValue(int value) {
         int sum = 0;
