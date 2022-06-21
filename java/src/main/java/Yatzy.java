@@ -4,11 +4,8 @@ public class Yatzy {
 
     protected int[] rolledDices;
 
-    public Yatzy(int... dices) {
-        if (dices.length > 5) {
-            throw new IllegalArgumentException("More dices than allowed");
-        }
-        this.rolledDices = dices;
+    public Yatzy(int d1, int d2, int d3, int d4, int d5) {
+        this.rolledDices = new int[]{d1, d2, d3, d4, d5};
     }
 
     public int chance() {
@@ -43,21 +40,6 @@ public class Yatzy {
         return getScoreForNOfAKind(2);
     }
 
-    public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = countOccurrencesOfDicesStatic(d1, d2, d3, d4, d5);
-        int n = 0;
-        int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (counts[6 - i - 1] >= 2) {
-                n++;
-                score += (6 - i);
-            }
-        if (n == 2)
-            return score * 2;
-        else
-            return 0;
-    }
-
     public int threeOfAKind() {
         return getScoreForNOfAKind(3);
     }
@@ -85,6 +67,26 @@ public class Yatzy {
         return 20;
     }
 
+    public int yatzy() {
+        int[] counts = countOccurrencesOfRolledDices();
+        return Arrays.stream(counts).anyMatch(occurrences -> occurrences == 5) ? 50 : 0;
+    }
+
+    public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
+        int[] counts = countOccurrencesOfDicesStatic(d1, d2, d3, d4, d5);
+        int n = 0;
+        int score = 0;
+        for (int i = 0; i < 6; i += 1)
+            if (counts[6 - i - 1] >= 2) {
+                n++;
+                score += (6 - i);
+            }
+        if (n == 2)
+            return score * 2;
+        else
+            return 0;
+    }
+
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
         int[] tallies = countOccurrencesOfDicesStatic(d1, d2, d3, d4, d5);
         ;
@@ -110,11 +112,6 @@ public class Yatzy {
             return _2_at * 2 + _3_at * 3;
         else
             return 0;
-    }
-
-    public int yatzy() {
-        int[] counts = countOccurrencesOfRolledDices();
-        return Arrays.stream(counts).anyMatch(occurrences -> occurrences == 5) ? 50 : 0;
     }
 
     private int sumDicesofValue(int value, int... dices) {
