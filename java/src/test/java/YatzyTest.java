@@ -71,6 +71,7 @@ public class YatzyTest {
     public void test_twoPairs_shouldSumTheValueOfTheTwoPairs() {
         assertEquals(16, YatzyScorer.twoPairs(new DiceHand(3, 3, 5, 4, 5)));
         assertEquals(16, YatzyScorer.twoPairs(new DiceHand(3, 3, 5, 5, 5)));
+        assertEquals(0, YatzyScorer.twoPairs(new DiceHand(3, 5, 5, 5, 5)));
     }
 
     @Test

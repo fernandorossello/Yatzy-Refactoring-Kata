@@ -76,6 +76,7 @@ public class YatzyScorer {
         int[] count = diceHand.countOccurrencesOfRolledDices();
         int _2_at = 0;
         int _3_at = 0;
+        int score = 0;
         boolean threeOf = false;
         boolean twoOf = false;
 
@@ -91,10 +92,11 @@ public class YatzyScorer {
             }
         }
 
+
+
         return twoOf && threeOf ? _2_at * 2 + _3_at * 3 : 0;
 
     }
-
 }
 
 

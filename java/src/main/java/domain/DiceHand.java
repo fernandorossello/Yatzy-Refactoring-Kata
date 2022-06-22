@@ -21,13 +21,7 @@ public class DiceHand {
     }
 
     public int getScoreForNOfAKind(int expectedOccurrences) {
-        int[] countOfOccurrences = this.countOccurrencesOfRolledDices();
-        for (int i = 6; i > 0; i--) {
-            if (countOfOccurrences[i] >= expectedOccurrences) {
-                return i * expectedOccurrences;
-            }
-        }
-        return 0;
+        return getDieWithNOccurrences(expectedOccurrences) * expectedOccurrences;
     }
 
     public boolean hasAllNumbersBetween(int from, int to) {
@@ -59,5 +53,16 @@ public class DiceHand {
 
     public int sumOfAllDice() {
         return Arrays.stream(rolledDices).sum();
+    }
+
+    private int getDieWithNOccurrences(int expectedOccurrences){
+        int[] countOfOccurrences = this.countOccurrencesOfRolledDices();
+        for (int i = 6; i > 0; i--) {
+            if (countOfOccurrences[i] >= expectedOccurrences) {
+                return i;
+            }
+        }
+
+        return 0;
     }
 }
